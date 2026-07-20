@@ -4,11 +4,16 @@ A Streamlit web app that simulates beginner job interviews and gives instant, st
 
 Built as the final capstone project for **Samsung Innovation Campus — Coding & Programming**, Presidency University, Bengaluru.
 
-🔗 **Live app:** _(add your Streamlit Cloud link here after deploying)_
+## 🔗 Try it now — no setup, no API key needed
+
+### 👉 [ai-mock-interviewer-cklgiym4djpjcukkm7rhes.streamlit.app](https://ai-mock-interviewer-cklgiym4djpjcukkm7rhes.streamlit.app)
+
+Just click the link above and start the interview directly.
 
 ## What it does
 
 - Pick a role — Software Developer, HR/General, or Data/Analyst
+- Choose your experience level — feedback difficulty adjusts accordingly
 - Answer real interview questions one at a time
 - Get instant AI feedback: a reasoned evaluation, a score out of 10, and specific improvement tips
 - Review a full summary at the end of the session
@@ -21,7 +26,7 @@ Built as the final capstone project for **Samsung Innovation Campus — Coding &
 
 ## Tech stack
 
-Python · Streamlit · Google Gemini API (`gemini-2.0-flash`)
+Python · Streamlit · Google Gemini API (`gemini-flash-latest`)
 
 ## Running it locally
 
