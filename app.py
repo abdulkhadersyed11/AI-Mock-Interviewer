@@ -110,15 +110,19 @@ Score: <x>/10
 Feedback: <your feedback>
 """
 
-def call_gemini_with_retry(model, prompt, retries=3):
+def call_gemini_with_retry(model, prompt, retries=2):
     for attempt in range(retries):
         try:
             response = model.generate_content(prompt)
             return response.text
         except Exception as e:
             if "429" in str(e) and attempt < retries - 1:
-                time.sleep(20)
+                time.sleep(15)
                 continue
+            if "429" in str(e):
+                return ("The shared free quota is busy right now (a few people may be using the app "
+                        "at once). Please wait 30-60 seconds and try again, or check 'Use my own "
+                        "Gemini API key' in the sidebar for uninterrupted access.")
             return f"Could not get feedback right now ({str(e)[:120]}...). Try again in a moment."
 
 # ---------- SESSION STATE ----------
@@ -146,9 +150,22 @@ st.markdown('<p class="subtitle">Practice real interview questions and get insta
 # ---------- SIDEBAR ----------
 with st.sidebar:
     st.header("Setup")
-    api_key = st.text_input("Enter your Gemini API key", type="password",
-                             help="Get a free key at aistudio.google.com/app/apikey")
-    st.caption("Your key is only used in your browser session — it is never stored or shared.")
+
+    # Try to use a shared key stored in Streamlit secrets first
+    shared_key = st.secrets.get("GEMINI_API_KEY", None) if hasattr(st, "secrets") else None
+
+    if shared_key:
+        st.success("Ready to go — no API key needed!")
+        use_own_key = st.checkbox("Use my own Gemini API key instead")
+        if use_own_key:
+            api_key = st.text_input("Enter your Gemini API key", type="password",
+                                     help="Get a free key at aistudio.google.com/app/apikey")
+        else:
+            api_key = shared_key
+    else:
+        api_key = st.text_input("Enter your Gemini API key", type="password",
+                                 help="Get a free key at aistudio.google.com/app/apikey")
+        st.caption("Your key is only used in your browser session — it is never stored or shared.")
 
     st.divider()
     st.subheader("About this project")
@@ -163,7 +180,8 @@ if not api_key:
     st.stop()
 
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel("gemini-flash-latest")
+model = genai.GenerativeModel("gemini-2.0-flash")
+
 # ---------- ROLE SELECTION ----------
 if not st.session_state.started:
     st.subheader("Set up your mock interview")
