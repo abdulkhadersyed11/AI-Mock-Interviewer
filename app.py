@@ -144,7 +144,7 @@ LEVEL_INFO = {
 }
 
 # ---------- HEADER ----------
-st.markdown('<p class="main-title">🎯 AI Mock Interviewer</p>', unsafe_allow_html=True)
+st.markdown('<p class="main-title"> AI Mock Interviewer</p>', unsafe_allow_html=True)
 st.markdown('<p class="subtitle">Practice real interview questions and get instant AI feedback</p>', unsafe_allow_html=True)
 
 # ---------- SIDEBAR ----------
@@ -170,7 +170,7 @@ with st.sidebar:
     st.divider()
     st.subheader("About this project")
     st.write(
-        "Built for the Samsung Innovation Campus GenAI capstone. "
+        "Built for the Samsung Innovation Campus GenAI. "
         "Uses few-shot prompting and Chain-of-Thought reasoning to evaluate interview answers, "
         "similar to how a real interviewer assesses structure, specificity, and tone."
     )
@@ -255,4 +255,4 @@ else:
             st.rerun()
 
 st.divider()
-st.caption("Samsung Innovation Campus — GenAI Capstone Project | Built by Abdul Khader")
+st.caption("Samsung Innovation Campus — GenAI Project | Built by  Syed Abdul Khader")
